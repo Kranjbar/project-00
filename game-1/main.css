@@ -1,0 +1,16 @@
+* {
+	padding: 0;
+	margin: 0;
+	background: orange;
+}
+
+body {
+	background: orange;
+}
+
+canvas {
+	display: block;
+	margin: 0 auto;
+	background: powderblue;
+}
+
