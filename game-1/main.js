@@ -5,12 +5,12 @@ $(document).ready(function() {
 	
 	var canvas = document.getElementById("myCanvas");
 	var ctx = canvas.getContext("2d");
-	var a = canvas.width / 4;
+	var a = 0;
 	var b = canvas.height / 4;
-	var c = canvas.width / 4;
+	var c = 0;
 	var d = canvas.height / 2;
-	var da = 1;
-	var dc = 1;
+	var da = 10;
+	var dc = 10;
 
 	function drawPlayer1() {
 		ctx.beginPath();
@@ -28,11 +28,12 @@ $(document).ready(function() {
 	}
 
 	function initializePlayers() {
-		drawPlayer1();
-		drawPlayer2();
+		a = 0;
+		c = 0;
+		draw();
+		$("h1").text("Race on!");
+		$(document).on("keyup", checkKeyCode); // Event listener for keypress
 	}
-
-	initializePlayers();
 
 	function draw() {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -40,16 +41,24 @@ $(document).ready(function() {
 		drawPlayer2();
 	}
 
-	$(window).keyup(checkKeyCode);
-
 	function checkKeyCode(event) {
 		if (event.which === 70) { // Check if "f" was pressed
 			a += da;
 			draw();
-		} else if (event.which === 74) {
+			if (a === (canvas.width - 50) ) {
+				$("h1").text("Player 1 wins!");
+				$(document).off("keyup", checkKeyCode);
+			}
+		} else if (event.which === 74) { // Check if "j" was pressed
 			c += dc;
 			draw();
+			if (c === (canvas.width - 50) ) {
+				$("h1").text("Player 2 wins!");
+				$(document).off("keyup", checkKeyCode);
+			}
 		}
 	}
 
+	initializePlayers(); // Start game
+	$("button").click(initializePlayers); // Reset game
 });

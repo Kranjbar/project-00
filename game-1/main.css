@@ -1,16 +1,13 @@
 * {
 	padding: 0;
 	margin: 0;
-	background: orange;
 }
 
 body {
-	background: orange;
+	background-color: green;
 }
 
 canvas {
 	display: block;
 	margin: 0 auto;
-	background: powderblue;
 }
-
