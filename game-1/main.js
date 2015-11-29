@@ -9,8 +9,8 @@ $(document).ready(function() {
 	var b = canvas.height / 4;
 	var c = 0;
 	var d = canvas.height / 2;
-	var da = 10;
-	var dc = 10;
+	var da = 50;
+	var dc = 50;
 
 	function drawPlayer1() {
 		ctx.beginPath();
