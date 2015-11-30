@@ -9,13 +9,17 @@ $(document).ready(function() {
 	var image = document.getElementById("source");
 
 	function Player( name, x, y ) {
-		this.name = name;
+		if (name) {
+			this.name = name;
+		} else {
+			this.name = "Player";
+		}
 		this.position = [x,y];
 		this.numOfWins = 0;
 	}
 
 	Player.prototype.move = function () {
-			this.position[0] += 60;
+			this.position[0] += 30;
 		};
 
 	var playerOne = new Player(prompt("What is Player 1's name?"), 0, canvas.height / 4);
@@ -23,7 +27,7 @@ $(document).ready(function() {
 	$("th").eq(0).text(playerOne.name + " Win Count");
 	$("th").eq(1).text(playerTwo.name + " Win Count");
 
-	function draw() {
+	function drawPlayers() {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		ctx.drawImage(image, playerOne.position[0], playerOne.position[1], sharkImageWidth, sharkImageHeight);
 		ctx.drawImage(image, playerTwo.position[0], playerTwo.position[1], sharkImageWidth, sharkImageHeight);
@@ -32,7 +36,7 @@ $(document).ready(function() {
 	function checkForMove(event) {
 		if (event.which === 70) { // Check if "f" was pressed
 			playerOne.move();
-			draw();
+			drawPlayers();
 			if (playerOne.position[0] === (canvas.width - 160) ) {
 				playerOne.numOfWins += 1;
 				$("h1").text(playerOne.name + " wins!");
@@ -41,7 +45,7 @@ $(document).ready(function() {
 			}
 		} else if (event.which === 74) { // Check if "j" was pressed
 			playerTwo.move();
-			draw();
+			drawPlayers();
 			if (playerTwo.position[0] === (canvas.width - 160) ) {
 				playerTwo.numOfWins += 1;
 				$("h1").text(playerTwo.name + " wins!");
@@ -56,7 +60,7 @@ $(document).ready(function() {
 		playerOne.position[0] = 0;
 		playerTwo.position[0] = 0;
 		$("h1").text("Race on!");
-		draw();
+		drawPlayers();
 		$(document).on("keyup", checkForMove); // Event listener for keypress
 	}
 
