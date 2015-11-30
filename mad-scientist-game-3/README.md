@@ -11,7 +11,7 @@
 
 ## Existing Features
 
-*2 user players with respective controls (press "f" to move player 1, "j" to move player 2*
+*2 user players with respective controls (press "f" to move player 1, "j" to move player 2)*
 *Name of round winner displayed and win count stored*
 *Gameboard able to be reset*
 
