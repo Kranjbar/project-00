@@ -4,45 +4,53 @@ console.log("JS works");
 $(document).ready(function() {
 	var canvas = document.getElementById("myCanvas");
 	var ctx = canvas.getContext("2d");
-	var pOneXPos = 0;
-	var pOneYPos = canvas.height / 4;
-	var pTwoXPos = 0;
-	var pTwoYPos = 3 * canvas.height / 4 - 60;
-	var imageWidth = 160;
-	var imageHeight = 60;
-	var changeInPos = 60;
+	var sharkImageWidth = 160;
+	var sharkImageHeight = 60;
 	var image = document.getElementById("source");
-	
-	function draw() {
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		ctx.drawImage(image, pOneXPos, pOneYPos, imageWidth, imageHeight);
-		ctx.drawImage(image, pTwoXPos, pTwoYPos, imageWidth, imageHeight);
+
+	function Player( x, y ) {
+		this.position = [x,y];
+		this.numOfWins = 0;
 	}
 
-	function checkKeyCode(event) {
+	Player.prototype.move = function () {
+			this.position[0] += 60;
+		};
+
+	var playerOne = new Player(0, canvas.height / 4);
+	var playerTwo = new Player(0, 3 * canvas.height / 4 - 60);
+
+	function draw() {
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		ctx.drawImage(image, playerOne.position[0], playerOne.position[1], sharkImageWidth, sharkImageHeight);
+		ctx.drawImage(image, playerTwo.position[0], playerTwo.position[1], sharkImageWidth, sharkImageHeight);
+	}
+	
+	function checkForMove(event) {
 		if (event.which === 70) { // Check if "f" was pressed
-			pOneXPos += changeInPos;
+			playerOne.move();
 			draw();
-			if (pOneXPos === (canvas.width - 160) ) {
+			if (playerOne.position[0] === (canvas.width - 160) ) {
 				$("h1").text("Player 1 wins!");
-				$(document).off("keyup", checkKeyCode);
+				$(document).off("keyup", checkForMove);
 			}
 		} else if (event.which === 74) { // Check if "j" was pressed
-			pTwoXPos += changeInPos;
+			playerTwo.move();
 			draw();
-			if (pTwoXPos === (canvas.width - 160) ) {
+			if (playerTwo.position[0] === (canvas.width - 160) ) {
 				$("h1").text("Player 2 wins!");
-				$(document).off("keyup", checkKeyCode);
+				$(document).off("keyup", checkForMove);
 			}
 		}
 	}
 
 	function initializeGame() {
-		pOneXPos = 0;
-		pTwoXPos = 0;
+		
+		playerOne.position[0] = 0;
+		playerTwo.position[0] = 0;
 		$("h1").text("Race on!");
 		draw();
-		$(document).on("keyup", checkKeyCode); // Event listener for keypress
+		$(document).on("keyup", checkForMove); // Event listener for keypress
 	}
 
 	initializeGame();
