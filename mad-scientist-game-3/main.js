@@ -8,7 +8,8 @@ $(document).ready(function() {
 	var sharkImageHeight = 60;
 	var image = document.getElementById("source");
 
-	function Player( x, y ) {
+	function Player( name, x, y ) {
+		this.name = name;
 		this.position = [x,y];
 		this.numOfWins = 0;
 	}
@@ -17,8 +18,10 @@ $(document).ready(function() {
 			this.position[0] += 60;
 		};
 
-	var playerOne = new Player(0, canvas.height / 4);
-	var playerTwo = new Player(0, 3 * canvas.height / 4 - 60);
+	var playerOne = new Player(prompt("What is Player 1's name?"), 0, canvas.height / 4);
+	var playerTwo = new Player(prompt("What is Player 2's name?"), 0, 3 * canvas.height / 4 - 60);
+	$("th").eq(0).text(playerOne.name + " Win Count");
+	$("th").eq(1).text(playerTwo.name + " Win Count");
 
 	function draw() {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -32,7 +35,7 @@ $(document).ready(function() {
 			draw();
 			if (playerOne.position[0] === (canvas.width - 160) ) {
 				playerOne.numOfWins += 1;
-				$("h1").text("Player 1 wins!");
+				$("h1").text(playerOne.name + " wins!");
 				$("th").eq(2).text(playerOne.numOfWins);
 				$(document).off("keyup", checkForMove);
 			}
@@ -41,7 +44,7 @@ $(document).ready(function() {
 			draw();
 			if (playerTwo.position[0] === (canvas.width - 160) ) {
 				playerTwo.numOfWins += 1;
-				$("h1").text("Player 2 wins!");
+				$("h1").text(playerTwo.name + " wins!");
 				$("th").eq(3).text(playerTwo.numOfWins);
 				$(document).off("keyup", checkForMove);
 			}
