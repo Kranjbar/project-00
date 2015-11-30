@@ -31,14 +31,18 @@ $(document).ready(function() {
 			playerOne.move();
 			draw();
 			if (playerOne.position[0] === (canvas.width - 160) ) {
+				playerOne.numOfWins += 1;
 				$("h1").text("Player 1 wins!");
+				$("th").eq(2).text(playerOne.numOfWins);
 				$(document).off("keyup", checkForMove);
 			}
 		} else if (event.which === 74) { // Check if "j" was pressed
 			playerTwo.move();
 			draw();
 			if (playerTwo.position[0] === (canvas.width - 160) ) {
+				playerTwo.numOfWins += 1;
 				$("h1").text("Player 2 wins!");
+				$("th").eq(3).text(playerTwo.numOfWins);
 				$(document).off("keyup", checkForMove);
 			}
 		}
