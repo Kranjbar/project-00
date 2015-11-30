@@ -1,0 +1,15 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+canvas {
+	display: block;
+	margin: 0 auto;
+	background-image: url("https://allaboutlemon.files.wordpress.com/2013/02/183-underwater-towers-background.jpg?w=640&h=480&h=480");
+	background-color: blue;
+}
+
+#source {
+	display: none;
+}
